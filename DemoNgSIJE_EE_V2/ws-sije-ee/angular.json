@@ -1,0 +1,164 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "sije-ee": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/sije-ee",
+      "sourceRoot": "projects/sije-ee/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/sije-ee",
+            "index": "projects/sije-ee/src/index.html",
+            "main": "projects/sije-ee/src/main.ts",
+            "polyfills": "projects/sije-ee/src/polyfills.ts",
+            "tsConfig": "projects/sije-ee/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/sije-ee/src/favicon.ico",
+              "projects/sije-ee/src/assets"
+            ],
+            "styles": [
+              "projects/sije-ee/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/sije-ee/src/environments/environment.ts",
+                  "with": "projects/sije-ee/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "sije-ee:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sije-ee:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sije-ee:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sije-ee/src/test.ts",
+            "polyfills": "projects/sije-ee/src/polyfills.ts",
+            "tsConfig": "projects/sije-ee/tsconfig.spec.json",
+            "karmaConfig": "projects/sije-ee/karma.conf.js",
+            "assets": [
+              "projects/sije-ee/src/favicon.ico",
+              "projects/sije-ee/src/assets"
+            ],
+            "styles": [
+              "projects/sije-ee/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sije-ee/tsconfig.app.json",
+              "projects/sije-ee/tsconfig.spec.json",
+              "projects/sije-ee/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/sije-ee/e2e/protractor.conf.js",
+            "devServerTarget": "sije-ee:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sije-ee:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "sije-ee-commons": {
+      "projectType": "library",
+      "root": "projects/sije-ee-commons",
+      "sourceRoot": "projects/sije-ee-commons/src",
+      "prefix": "ee",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sije-ee-commons/tsconfig.lib.json",
+            "project": "projects/sije-ee-commons/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sije-ee-commons/src/test.ts",
+            "tsConfig": "projects/sije-ee-commons/tsconfig.spec.json",
+            "karmaConfig": "projects/sije-ee-commons/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sije-ee-commons/tsconfig.lib.json",
+              "projects/sije-ee-commons/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "sije-ee"
+}
